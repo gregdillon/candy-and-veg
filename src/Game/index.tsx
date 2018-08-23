@@ -8,27 +8,35 @@ interface IGameState {
   hero: string,
   weapon: string,
   level: number,
-  gameStarted: boolean
+  gameState: number
+}
+
+const GameStateValues = {
+  NEW: 1,
+  INTRO: 2,
+  MAP: 3,
+  BATTLE: 4
 }
 
 class Game extends React.Component<IGameProps,IGameState> {
+
   constructor(props:IGameProps){
     super(props);
     this.state = {
       hero: "",
       weapon: "",
       level: 1,
-      gameStarted: false
+      gameState: GameStateValues.NEW
     }
   }
 
-  public startGame = () => this.setState({ gameStarted: true })
+  public startGame = () => this.setState({ gameState: 2 })
 
   public render() {
     return (
       <div className="Game">
         <Title startGame={this.startGame} />
-        {this.state.gameStarted && "START"}
+        {this.state.gameState === 2 && "START"}
       </div>
     );
   }
