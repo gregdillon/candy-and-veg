@@ -1,5 +1,8 @@
 import * as React from 'react';
 import Title from './Title';
+import Intro from './Intro';
+import Map from './Map';
+import Battle from './Battle';
 import './Game.css';
 
 interface IGameProps {}
@@ -30,13 +33,26 @@ class Game extends React.Component<IGameProps,IGameState> {
     }
   }
 
-  public startGame = () => this.setState({ gameState: 2 })
+  public setGamePosition = (gamePosition:number) => {
+    if (gamePosition === 0){
+      this.setState({
+        hero: "",
+        weapon: "",
+        level: 1,
+        gameState: GameStateValues.NEW
+      });
+    } else {
+      this.setState({ gameState: gamePosition });
+    }
+  }
 
   public render() {
     return (
       <div className="Game">
-        <Title startGame={this.startGame} />
-        {this.state.gameState === 2 && "START"}
+        {this.state.gameState === 1 && <Title setPosition={this.setGamePosition} /> }
+        {this.state.gameState === 2 && <Intro setPosition={this.setGamePosition} /> }
+        {this.state.gameState === 3 && <Map setPosition={this.setGamePosition} /> }
+        {this.state.gameState === 4 && <Battle setPosition={this.setGamePosition} />}
       </div>
     );
   }

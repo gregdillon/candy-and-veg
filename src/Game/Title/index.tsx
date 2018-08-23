@@ -1,20 +1,20 @@
 import * as React from 'react';
 
 interface ITitleProps {
-  startGame: () => void
+  setPosition: (positionNumber:number) => void
 }
 
 interface ITitleState { }
 
 class Game extends React.Component<ITitleProps, ITitleState> {
 
-  public onClick = () => this.props.startGame();
+  public setGameState = () => this.props.setPosition(2);
 
   public render() {
     return (
       <div>
         Candy and Vegetables!
-        <button onClick={this.onClick}>Start</button>
+        <button onClick={this.setGameState}>Start</button>
       </div>
     );
   }
