@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Map from '../Images/map.png';
 
 interface IMapProps {
   setPosition: (positionNumber: number) => void
@@ -13,7 +14,7 @@ class Game extends React.Component<IMapProps, IMapState> {
   public render() {
     return (
       <div>
-        Choose A Level
+        <img src={Map} alt=""/>
         <button onClick={this.setGameState}>Battle</button>
       </div>
     );
