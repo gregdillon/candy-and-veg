@@ -8,8 +8,8 @@ import './Game.css';
 interface IGameProps {}
 
 interface IGameState {
-  hero: string,
-  weapon: string,
+  hero: number | null,
+  weapon: number | null,
   level: number,
   gameState: number
 }
@@ -26,8 +26,8 @@ class Game extends React.Component<IGameProps,IGameState> {
   constructor(props:IGameProps){
     super(props);
     this.state = {
-      hero: "",
-      weapon: "",
+      hero: null,
+      weapon: null,
       level: 1,
       gameState: GameStateValues.NEW
     }
@@ -36,8 +36,8 @@ class Game extends React.Component<IGameProps,IGameState> {
   public setGamePosition = (gamePosition:number) => {
     if (gamePosition === 0){
       this.setState({
-        hero: "",
-        weapon: "",
+        hero: null,
+        weapon: null,
         level: 1,
         gameState: GameStateValues.NEW
       });
@@ -50,7 +50,15 @@ class Game extends React.Component<IGameProps,IGameState> {
     return (
       <div className="Game">
         {this.state.gameState === 1 && <Title setPosition={this.setGamePosition} /> }
-        {this.state.gameState === 2 && <Intro setPosition={this.setGamePosition} /> }
+        {this.state.gameState === 2 &&
+          <Intro
+            setHero={(hero) => this.setState({hero})}
+            setWeapon={(weapon) => this.setState({weapon})}
+            setPosition={this.setGamePosition}
+            currentHero={this.state.hero}
+            currentWeapon={this.state.weapon}
+            />
+          }
         {this.state.gameState === 3 && <Map setPosition={this.setGamePosition} /> }
         {this.state.gameState === 4 && <Battle setPosition={this.setGamePosition} />}
       </div>

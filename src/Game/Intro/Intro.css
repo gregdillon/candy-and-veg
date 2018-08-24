@@ -11,3 +11,7 @@ div.intro-col {
 img:hover {
   cursor: pointer;
 }
+.dim {
+  opacity: .25;
+  filter: grayscale(100%);
+}
