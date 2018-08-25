@@ -9,7 +9,19 @@
   cursor: url('../Images/ax_cursor.png'), crosshair;
 }
 .battle-level-1 {
-  background: url('../Images/background_1.jpg');
+  background: url('../Images/backgrounds/background_1.jpg');
+}
+.battle-level-2 {
+  background: url('../Images/backgrounds/background_2.jpg');
+}
+.battle-level-3 {
+  background: url('../Images/backgrounds/background_3.jpg');
+}
+.battle-level-4 {
+  background: url('../Images/backgrounds/background_4.jpg');
+}
+.battle-level-5 {
+  background: url('../Images/backgrounds/background_5.jpg');
 }
 .hero-container,
 .enemies-container {
