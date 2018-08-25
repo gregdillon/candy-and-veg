@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './title.css';
 
 interface ITitleProps {
   setPosition: (positionNumber:number) => void
@@ -12,9 +13,8 @@ class Game extends React.Component<ITitleProps, ITitleState> {
 
   public render() {
     return (
-      <div>
-        Candy and Vegetables!
-        <button onClick={this.setGameState}>Start</button>
+      <div className="title-container">
+        <button className="start-button" onClick={this.setGameState}>Start</button>
       </div>
     );
   }
