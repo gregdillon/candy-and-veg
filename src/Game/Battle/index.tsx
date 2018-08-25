@@ -1,4 +1,6 @@
 import * as React from 'react';
+// @ts-ignore
+import Sound from 'react-sound';
 import Enemy from './Enemy';
 import Princess1 from '../Images/princess_1.png';
 import Princess2 from '../Images/princess_2.png';

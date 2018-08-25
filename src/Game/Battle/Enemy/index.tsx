@@ -1,4 +1,6 @@
 import * as React from 'react';
+// @ts-ignore
+import Sound from 'react-sound';
 import {IEnemy} from '../index'
 import Enemy_1 from './Images/broc.png';
 import Enemy_2 from './Images/brocolli.png';
@@ -24,9 +26,13 @@ interface IEnemyState {
 }
 
 class Enemy extends React.Component<IEnemyProps, IEnemyState> {
+  public hitTimeOut:any;
+  public missTimeOut:any;
 
   constructor(props:IEnemyProps){
     super(props);
+    this.hitTimeOut = null;
+    this.missTimeOut = null;
     this.state = {
       showMiss: false,
       showHit: false
@@ -50,17 +56,17 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
 
   public triggerMiss = () => {
     this.setState({showMiss:true},()=>{
-      setTimeout(()=>{
+      this.missTimeOut = setTimeout(()=>{
         this.setState({showMiss: false});
-      },1000);
+      },1300);
     })
   }
 
   public triggerHit = () => {
     this.setState({ showHit: true }, () => {
-      setTimeout(() => {
+      this.hitTimeOut = setTimeout(() => {
         this.setState({ showHit: false });
-      }, 1000);
+      }, 1300);
     })
   }
 
@@ -69,6 +75,10 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     const evenNumber = randomNumber % 2 === 0;
     const is33Percent = randomNumber === 3 || randomNumber === 5;
+    // @ts-ignore
+    clearTimeout(this.hitTimeOut);
+    // @ts-ignore
+    clearTimeout(this.missTimeOut);
     this.setState({showMiss:false, showHit:false}, () => {
       if ((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
         this.triggerMiss();
@@ -82,9 +92,16 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   }
 
   public render() {
+    const enemyIsAlive = this.props.enemy.health > 0 
     return (
       <div className="enemy-container">
-      {this.props.enemy.health > 0 ?
+        {this.state.showHit &&
+          <Sound url={`${enemyIsAlive ? "ouch.mp3" : "ahhh.mp3"}`} volume={50} playStatus={Sound.status.PLAYING} />
+        }
+        {this.state.showMiss &&
+          <Sound url="swoosh.mp3" volume={50} playStatus={Sound.status.PLAYING} />
+        }
+        {enemyIsAlive ?
         <>
           <div className="enemy-health">
             Health: {this.props.enemy.health} Power: {this.props.enemy.power}
@@ -94,7 +111,9 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
           {this.generateEnemyImage()}
         </>
         :
-        <img src={Ghost} className="ghost" alt="Ghost"/>
+        <>
+          <img src={Ghost} className="ghost" alt="Ghost"/>
+        </>
       }
       </div>
     );
