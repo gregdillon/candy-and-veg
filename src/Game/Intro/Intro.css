@@ -1,0 +1,14 @@
+.intro-main {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-around;
+}
+div.intro-col {
+  background: white;
+  display: inline-block;
+  width: 33%;
+}
+.dim {
+  opacity: .25;
+  filter: grayscale(100%);
+}

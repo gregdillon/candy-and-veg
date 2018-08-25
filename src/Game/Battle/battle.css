@@ -1,0 +1,51 @@
+.battle-container {
+  position: relative;
+  height: 100%;
+}
+.battle-container.weapon-1:hover {
+  cursor: url('../Images/sword_cursor.png'), crosshair;
+}
+.battle-container.weapon-2:hover {
+  cursor: url('../Images/ax_cursor.png'), crosshair;
+}
+.battle-level-1 {
+  background: url('../Images/background_1.jpg');
+}
+.hero-container,
+.enemies-container {
+  height: 100%;
+  overflow: hidden;
+  display: inline-block;
+}
+.hero-container {
+  width: 35%;
+}
+.hero-container .hero-health {
+  text-align: center;
+  margin-top: 100px;
+}
+.enemies-container {
+  position: relative;
+  width: 65%;
+}
+.hero-img {
+  position: absolute;
+  bottom: 0;
+  filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600));
+  animation-name: bounce;
+  animation-duration: 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+.hero-img.was-hit {
+  filter: hue-rotate(50deg) drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600));
+}
+
+@keyframes bounce {
+  from {
+    transform: translate(0%,-2%);
+  }
+  to {
+    transform: translate(0%,0%);
+  };
+}

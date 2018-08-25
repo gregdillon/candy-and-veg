@@ -1,0 +1,7 @@
+div.Game {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 900px;
+  height: 600px;
+  border: 1px solid #000;
+}

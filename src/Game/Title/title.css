@@ -1,0 +1,10 @@
+.title-container {
+  height: 100%;
+  position: relative;
+  background-image: url('../Images/title.jpg');
+}
+.start-button {
+  position: absolute;
+  top: 350px;
+  left: 136px;
+}
