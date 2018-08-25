@@ -59,8 +59,20 @@ class Game extends React.Component<IGameProps,IGameState> {
             currentWeapon={this.state.weapon}
             />
           }
-        {this.state.gameState === 3 && <Map setPosition={this.setGamePosition} /> }
-        {this.state.gameState === 4 && <Battle setPosition={this.setGamePosition} />}
+        {this.state.gameState === 3 &&
+          <Map
+            setPosition={this.setGamePosition}
+            hero={this.state.hero}
+            level={this.state.level}
+          />
+          }
+        {this.state.gameState === 4 &&
+          <Battle
+            setPosition={this.setGamePosition}
+            hero={this.state.hero}
+            level={this.state.level}
+          />
+        }
       </div>
     );
   }

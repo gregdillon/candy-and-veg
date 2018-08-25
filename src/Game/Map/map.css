@@ -1,0 +1,39 @@
+.map {
+  position: relative;
+}
+.map-hero {
+  position: absolute;
+  height: 50px;
+  animation-name: bounce;
+  animation-duration: 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+.level-1 {
+  top: 100px;
+  left: 128px;
+}
+.level-2 {
+  top: 206px;
+  left: 132px;
+}
+.level-3 {
+  top: 300px;
+  left: 186px;
+}
+.level-4 {
+  top: 413px;
+  left: 1350px;
+}
+.level-5 {
+  top: 515px;
+  left: 265px;
+}
+@keyframes bounce {
+  from {
+    transform: translate(0%,-5%) rotate(-5deg);
+  }
+  to {
+    transform: translate(0%,0%) rotate(0%);
+  };
+}

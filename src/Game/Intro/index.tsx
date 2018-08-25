@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Intro.css';
-import Princess1 from '../Images/princess_1.png'
-import Princess2 from '../Images/princess_2.png'
+import Princess1 from '../Images/princess_1.png';
+import Princess2 from '../Images/princess_2.png';
 import Ax from '../Images/ax.png'
 import Sword from '../Images/sword.png'
 
