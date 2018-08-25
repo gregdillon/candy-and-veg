@@ -11,7 +11,8 @@ interface IGameState {
   hero: number | null,
   weapon: number | null,
   level: number,
-  gameState: number
+  gameState: number,
+  heroHealth: number,
 }
 
 const GameStateValues = {
@@ -29,7 +30,8 @@ class Game extends React.Component<IGameProps,IGameState> {
       hero: null,
       weapon: null,
       level: 1,
-      gameState: GameStateValues.NEW
+      gameState: GameStateValues.NEW,
+      heroHealth: 50
     }
   }
 
@@ -72,6 +74,7 @@ class Game extends React.Component<IGameProps,IGameState> {
             hero={this.state.hero}
             weapon={this.state.weapon}
             level={this.state.level}
+            heroHealth={this.state.heroHealth}
           />
         }
       </div>

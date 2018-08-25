@@ -12,7 +12,8 @@ import './enemy.css';
 
 interface IEnemyProps {
   enemyNumber: number,
-  enemeyPower: number
+  enemeyHealth: number,
+  enemyPower: number
 }
 
 interface IEnemyState { }
@@ -37,8 +38,8 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   public render() {
     return (
       <div className="enemy-container">
-        <div className="enemy-power">
-          {this.props.enemeyPower}
+        <div className="enemy-health">
+          {this.props.enemeyHealth}
         </div>
         {this.generateEnemyImage()}
       </div>

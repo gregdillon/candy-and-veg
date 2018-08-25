@@ -20,6 +20,10 @@
 .hero-container {
   width: 35%;
 }
+.hero-container .hero-health {
+  text-align: center;
+  margin-top: 100px;
+}
 .enemies-container {
   position: relative;
   width: 65%;
