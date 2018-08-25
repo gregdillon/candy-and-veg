@@ -3,10 +3,10 @@
   height: 100%;
 }
 .battle-container.weapon-1:hover {
-  cursor: url('../Images/sword_cursor.png'), crosshair;
+  cursor: url('../Images/sword_cursor.png') 64 56, crosshair;
 }
 .battle-container.weapon-2:hover {
-  cursor: url('../Images/ax_cursor.png'), crosshair;
+  cursor: url('../Images/ax_cursor.png') 56 36, crosshair;
 }
 .battle-level-1 {
   background: url('../Images/backgrounds/background_1.jpg');
