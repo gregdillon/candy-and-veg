@@ -43,7 +43,7 @@ class Game extends React.Component<IIntroProps, IIntroState> {
           </div>
         </div>
       </div>
-        <button onClick={this.setGameState}>Map</button>
+        <button disabled={!this.props.currentHero || !this.props.currentWeapon} onClick={this.setGameState}>Map</button>
       </>
     );
   }

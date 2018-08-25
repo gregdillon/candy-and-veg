@@ -69,7 +69,7 @@ class Game extends React.Component<IBattleProps, IBattleState> {
     const enemyToUpdate = enemies[enemyToUpdateIndex];
     enemyToUpdate.health = health;
     enemies[enemyToUpdateIndex] = enemyToUpdate;
-    this.setState({enemies}, () => this.enemyAttack());
+    this.setState({ enemies }, () => this.enemyAttack(enemyId));
   }
 
   public livingEnemies = ():IEnemy[] => this.state.enemies.filter(e => e.health > 0);
@@ -82,12 +82,17 @@ class Game extends React.Component<IBattleProps, IBattleState> {
     })
   }
 
-  public enemyAttack = () => {
+  public enemyAttack = (attackedEnemyId:number) => {
     const allEnemies = this.livingEnemies();
     let heroHealth = this.props.heroHealth;
     allEnemies.forEach(enemy => {
-      const randomNumber = Math.floor(Math.random() * 2) + 1;
-      if(randomNumber === 1) {
+      const randomNumber = Math.floor(Math.random() * 4) + 1;
+      const wasAttackedEnemy = enemy.enemyId === attackedEnemyId;
+      if(wasAttackedEnemy && randomNumber !== 3) {
+        this.triggerHit();
+        heroHealth = heroHealth - enemy.power;
+      }
+      if (!wasAttackedEnemy && randomNumber % 2 === 0) {
         this.triggerHit();
         heroHealth = heroHealth - enemy.power;
       }
