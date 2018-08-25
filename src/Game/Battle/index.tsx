@@ -9,38 +9,76 @@ interface IBattleProps {
   hero: number | null,
   weapon: number | null;
   level: number,
-  heroHealth: number
+  heroHealth: number,
+  updateHeorHealth: (health:number) => void
 }
 
 interface IBattleState {
+  enemies: IEnemy[]
 }
 
-interface IEnemy {
+export interface IEnemy {
+  enemyId: number
   health: number,
   power: number,
   number: number
 }
 
 const MAX_ENEMY_HEALTH = 10;
-const MAX_ENEMY_POWER = 10;
+const MAX_ENEMY_POWER = 5;
 const NUMBER_OF_ENEMIES = 9;
 
 class Game extends React.Component<IBattleProps, IBattleState> {
 
+  constructor(props:IBattleProps) {
+    super(props);
+    this.state = {
+      enemies : []
+    }
+  }
+
   public returnToMap = () => this.props.setPosition(3);
 
-  public generateEnemies = ():IEnemy[] => {
-    const enemies:IEnemy[] = [];
-    const level = this.props.level;
-    let enemyCount = level > 3 ? 3 : level;
-    while(enemyCount > 0){
-      enemies.push({
-        health: Math.floor(Math.random() * MAX_ENEMY_HEALTH) + 1,
-        power: Math.floor(Math.random() * MAX_ENEMY_POWER) + 1,
-        number: Math.floor(Math.random() * NUMBER_OF_ENEMIES) + 1})
-      enemyCount--
+  public componentDidMount = () => {
+    const generateEnemies = (): IEnemy[] => {
+      const enemies: IEnemy[] = [];
+      const level = this.props.level;
+      let enemyCount = level > 3 ? 3 : level;
+      while (enemyCount > 0) {
+        enemies.push({
+          enemyId: enemyCount,
+          health: Math.floor(Math.random() * MAX_ENEMY_HEALTH) + 1,
+          power: Math.floor(Math.random() * MAX_ENEMY_POWER) + 1,
+          number: Math.floor(Math.random() * NUMBER_OF_ENEMIES) + 1
+        })
+        enemyCount--
+      }
+      return enemies;
     }
-    return enemies;
+    this.setState({ enemies: generateEnemies()})
+  }
+
+  public updateEnemy = (enemyId:number,health:number) => {
+    const enemies = this.state.enemies;
+    const enemyToUpdateIndex = enemies.findIndex(e => e.enemyId === enemyId);
+    const enemyToUpdate = enemies[enemyToUpdateIndex];
+    enemyToUpdate.health = health;
+    enemies[enemyToUpdateIndex] = enemyToUpdate;
+    this.setState({enemies}, () => this.enemyAttack());
+  }
+
+  public livingEnemies = ():IEnemy[] => this.state.enemies.filter(e => e.health > 0);
+
+  public enemyAttack = () => {
+    const allEnemies = this.livingEnemies();
+    let heroHealth = this.props.heroHealth;
+    allEnemies.forEach(enemy => {
+      const randomNumber = Math.floor(Math.random() * 2) + 1;
+      if(randomNumber === 1) {
+        heroHealth = heroHealth - enemy.power;
+      }
+    });
+    this.props.updateHeorHealth(heroHealth);
   }
 
   public render() {
@@ -53,12 +91,12 @@ class Game extends React.Component<IBattleProps, IBattleState> {
         <img src={this.props.hero === 1 ? Princess1 : Princess2} className="hero-img" alt="Hero"/>
       </div>
       <div className="enemies-container">
-          {this.generateEnemies().map((enemy, index) =>
+          {this.state.enemies.map(enemy =>
             <Enemy
-              key={index}
-              enemyNumber={enemy.number}
-              enemyPower={enemy.power}
-              enemeyHealth={enemy.health}
+              key={enemy.enemyId}
+              enemy={enemy}
+              weaponUsed={this.props.weapon}
+              updateHealth={(enemyId,health) => this.updateEnemy(enemyId,health)}
             />)
           }
       </div>

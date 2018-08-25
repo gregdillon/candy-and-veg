@@ -75,6 +75,7 @@ class Game extends React.Component<IGameProps,IGameState> {
             weapon={this.state.weapon}
             level={this.state.level}
             heroHealth={this.state.heroHealth}
+            updateHeorHealth={(heroHealth) => this.setState({heroHealth})}
           />
         }
       </div>
