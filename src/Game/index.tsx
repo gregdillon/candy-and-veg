@@ -31,7 +31,7 @@ class Game extends React.Component<IGameProps,IGameState> {
       weapon: null,
       level: 1,
       gameState: GameStateValues.NEW,
-      heroHealth: 50
+      heroHealth: 100
     }
   }
 
@@ -76,6 +76,7 @@ class Game extends React.Component<IGameProps,IGameState> {
             level={this.state.level}
             heroHealth={this.state.heroHealth}
             updateHeorHealth={(heroHealth) => this.setState({heroHealth})}
+            continue={() => this.setState(prevState => ({level: prevState.level + 1, gameState: GameStateValues.MAP}))}
           />
         }
       </div>

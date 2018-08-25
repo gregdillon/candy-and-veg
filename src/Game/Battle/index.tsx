@@ -11,6 +11,7 @@ interface IBattleProps {
   level: number,
   heroHealth: number,
   updateHeorHealth: (health:number) => void
+  continue: () => void
 }
 
 interface IBattleState {
@@ -95,24 +96,26 @@ class Game extends React.Component<IBattleProps, IBattleState> {
   public render() {
     return (
       <div className={`battle-container battle-level-${this.props.level} weapon-${this.props.weapon}`}>
-      <div className="hero-container">
-          <div className="hero-health">
-            {this.props.heroHealth}
-            {this.state.showHit && " OUCH"}
-          </div>
-        <img src={this.props.hero === 1 ? Princess1 : Princess2} className={`hero-img ${this.state.showHit ? 'was-hit': ''}`} alt="Hero"/>
-      </div>
-      <div className="enemies-container">
-          {this.state.enemies.map(enemy =>
-            <Enemy
-              key={enemy.enemyId}
-              enemy={enemy}
-              weaponUsed={this.props.weapon}
-              updateHealth={(enemyId,health) => this.updateEnemy(enemyId,health)}
-            />)
-          }
-      </div>
-        {/* <button onClick={this.returnToMap}>Return to map</button> */}
+        <div className="hero-container">
+            <div className="hero-health">
+              {this.props.heroHealth}
+              {this.state.showHit && " OUCH"}
+              {this.livingEnemies().length === 0 &&
+                <button onClick={() => this.props.continue()}>You Win! Return to Map!</button>
+              }
+            </div>
+          <img src={this.props.hero === 1 ? Princess1 : Princess2} className={`hero-img ${this.state.showHit ? 'was-hit': ''}`} alt="Hero"/>
+        </div>
+        <div className="enemies-container">
+            {this.state.enemies.map(enemy =>
+              <Enemy
+                key={enemy.enemyId}
+                enemy={enemy}
+                weaponUsed={this.props.weapon}
+                updateHealth={(enemyId,health) => this.updateEnemy(enemyId,health)}
+              />)
+            }
+        </div>
       </div>
     );
   }
