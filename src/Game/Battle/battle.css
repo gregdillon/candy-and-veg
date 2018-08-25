@@ -2,19 +2,32 @@
   position: relative;
   height: 100%;
 }
+.battle-container.weapon-1:hover {
+  cursor: url('../Images/sword_cursor.png'), crosshair;
+}
+.battle-container.weapon-2:hover {
+  cursor: url('../Images/ax_cursor.png'), crosshair;
+}
 .battle-level-1 {
   background: url('../Images/background_1.jpg');
 }
 .hero-container,
-.enemy-container {
-  width: 50%;
+.enemies-container {
   height: 100%;
   overflow: hidden;
   display: inline-block;
 }
+.hero-container {
+  width: 35%;
+}
+.enemies-container {
+  position: relative;
+  width: 65%;
+}
 .hero-img {
   position: absolute;
   bottom: 0;
+  filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600));
   animation-name: bounce;
   animation-duration: 500ms;
   animation-direction: alternate;

@@ -1,0 +1,31 @@
+.enemy-container {
+  width: 33%;
+  height: 100%;
+  float: right;
+}
+.enemy-container img {
+  position: absolute;
+  bottom: 5px;
+  filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600));
+  animation-name: enemy-rotate;
+  animation-duration: 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+.enemy-power {
+  text-align: center;
+  margin-top: 100px;
+}
+
+@keyframes enemy-rotate {
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  0% {
+    transform: rotate(5deg);
+  };
+}

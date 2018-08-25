@@ -8,9 +8,6 @@ div.intro-col {
   display: inline-block;
   width: 33%;
 }
-img:hover {
-  cursor: pointer;
-}
 .dim {
   opacity: .25;
   filter: grayscale(100%);
