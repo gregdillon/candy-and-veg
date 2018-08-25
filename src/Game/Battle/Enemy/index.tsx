@@ -17,7 +17,8 @@ import './enemy.css';
 interface IEnemyProps {
   enemy: IEnemy,
   weaponUsed: number | null,
-  updateHealth: (enemyId:number, health:number) => void
+  updateHealth: (enemyId:number, health:number) => void,
+  enemyAttack: (enemyId:number) => void
 }
 
 interface IEnemyState {
@@ -66,6 +67,7 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
     this.setState({showMiss:false, showHit:false}, () => {
       if ((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
         this.triggerMiss();
+        this.props.enemyAttack(this.props.enemy.enemyId);
       } else {
         this.triggerHit();
         const currentHealth = this.props.enemy.health;
@@ -79,12 +81,8 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
     const enemyIsAlive = this.props.enemy.health > 0 
     return (
       <div className="enemy-container">
-        {this.state.showHit &&
-          <Sound url={`${enemyIsAlive ? "ouch.mp3" : "ahhh.mp3"}`} volume={50} playStatus={Sound.status.PLAYING} onFinishedPlaying={() => this.setState({showHit:false})} />
-        }
-        {this.state.showMiss &&
-          <Sound url="swoosh.mp3" volume={50} playStatus={Sound.status.PLAYING} onFinishedPlaying={() => this.setState({showMiss:false})} />
-        }
+        <Sound url={`${enemyIsAlive ? "ouch.mp3" : "ahhh.mp3"}`} volume={15} playStatus={this.state.showHit ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showHit: false })} />
+        <Sound url="swoosh.mp3" volume={50} playStatus={this.state.showMiss ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showMiss: false })} />
         {enemyIsAlive ?
         <>
           <div className="enemy-health">

@@ -52,8 +52,8 @@ class Game extends React.Component<IBattleProps, IBattleState> {
       while (enemyCount > 0) {
         enemies.push({
           enemyId: enemyCount,
-          health: Math.floor(Math.random() * MAX_ENEMY_HEALTH) + 1,
-          power: Math.floor(Math.random() * MAX_ENEMY_POWER) + 1,
+          health: level === 1 ? 5 : Math.floor(Math.random() * MAX_ENEMY_HEALTH) + 1,
+          power: level === 1 ? 1 : Math.floor(Math.random() * MAX_ENEMY_POWER) + 1,
           number: Math.floor(Math.random() * NUMBER_OF_ENEMIES) + 1
         })
         enemyCount--
@@ -120,6 +120,7 @@ class Game extends React.Component<IBattleProps, IBattleState> {
                 enemy={enemy}
                 weaponUsed={this.props.weapon}
                 updateHealth={(enemyId,health) => this.updateEnemy(enemyId,health)}
+                enemyAttack={(attackedId) => this.enemyAttack(attackedId)}
               />)
             }
         </div>
