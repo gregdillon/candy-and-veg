@@ -75,9 +75,7 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     const evenNumber = randomNumber % 2 === 0;
     const is33Percent = randomNumber === 3 || randomNumber === 5;
-    // @ts-ignore
     clearTimeout(this.hitTimeOut);
-    // @ts-ignore
     clearTimeout(this.missTimeOut);
     this.setState({showMiss:false, showHit:false}, () => {
       if ((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
