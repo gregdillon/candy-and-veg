@@ -9,6 +9,7 @@ import Enemy_6 from './Images/the_tomato.png';
 import Enemy_7 from './Images/tuff_tomato.png';
 import Enemy_8 from './Images/two_punkins.png';
 import Enemy_9 from './Images/two_tomatos.png';
+import Ghost from './Images/ghost.png';
 import './enemy.css';
 
 interface IEnemyProps {
@@ -17,9 +18,20 @@ interface IEnemyProps {
   updateHealth: (enemyId:number, health:number) => void
 }
 
-interface IEnemyState { }
+interface IEnemyState {
+  showMiss: boolean,
+  showHit: boolean
+}
 
 class Enemy extends React.Component<IEnemyProps, IEnemyState> {
+
+  constructor(props:IEnemyProps){
+    super(props);
+    this.state = {
+      showMiss: false,
+      showHit: false
+    }
+  }
 
   public generateEnemyImage = ():JSX.Element => {
     const enemy = {
@@ -33,7 +45,23 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
       8: Enemy_8,
       9: Enemy_9
     }
-    return <img onClick={() => this.attacked()} src={enemy[this.props.enemy.number]} alt="enemy" />
+    return <img onClick={() => this.attacked()} src={enemy[this.props.enemy.number]} className={`${this.state.showHit ? 'was-hit' : ''}`} alt="enemy" />
+  }
+
+  public triggerMiss = () => {
+    this.setState({showMiss:true},()=>{
+      setTimeout(()=>{
+        this.setState({showMiss: false});
+      },1000);
+    })
+  }
+
+  public triggerHit = () => {
+    this.setState({ showHit: true }, () => {
+      setTimeout(() => {
+        this.setState({ showHit: false });
+      }, 1000);
+    })
   }
 
   public attacked = () => {
@@ -41,13 +69,16 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     const evenNumber = randomNumber % 2 === 0;
     const is33Percent = randomNumber === 3 || randomNumber === 5;
-    if((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
-      // Show miss and then remove after setTimeout
-    } else {
-      const currentHealth = this.props.enemy.health;
-      const newHealth = weaponUsed === 1 ? currentHealth - 1 : currentHealth - 2;
-      this.props.updateHealth(this.props.enemy.enemyId, newHealth);
-    }
+    this.setState({showMiss:false, showHit:false}, () => {
+      if ((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
+        this.triggerMiss();
+      } else {
+        this.triggerHit();
+        const currentHealth = this.props.enemy.health;
+        const newHealth = weaponUsed === 1 ? currentHealth - 1 : currentHealth - 2;
+        this.props.updateHealth(this.props.enemy.enemyId, newHealth);
+      }
+    });
   }
 
   public render() {
@@ -57,11 +88,13 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
         <>
           <div className="enemy-health">
             Health: {this.props.enemy.health} Power: {this.props.enemy.power}
+            {this.state.showMiss && " MISS"}
+            {this.state.showHit && " HIT"}
           </div>
           {this.generateEnemyImage()}
         </>
         :
-        <div>DEAD</div>
+        <img src={Ghost} className="ghost" alt="Ghost"/>
       }
       </div>
     );

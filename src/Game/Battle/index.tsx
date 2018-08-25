@@ -14,7 +14,8 @@ interface IBattleProps {
 }
 
 interface IBattleState {
-  enemies: IEnemy[]
+  enemies: IEnemy[],
+  showHit: boolean
 }
 
 export interface IEnemy {
@@ -33,7 +34,8 @@ class Game extends React.Component<IBattleProps, IBattleState> {
   constructor(props:IBattleProps) {
     super(props);
     this.state = {
-      enemies : []
+      enemies: [],
+      showHit: false
     }
   }
 
@@ -69,12 +71,21 @@ class Game extends React.Component<IBattleProps, IBattleState> {
 
   public livingEnemies = ():IEnemy[] => this.state.enemies.filter(e => e.health > 0);
 
+  public triggerHit = () => {
+    this.setState({ showHit: true }, () => {
+      setTimeout(() => {
+        this.setState({ showHit: false });
+      }, 1000);
+    })
+  }
+
   public enemyAttack = () => {
     const allEnemies = this.livingEnemies();
     let heroHealth = this.props.heroHealth;
     allEnemies.forEach(enemy => {
       const randomNumber = Math.floor(Math.random() * 2) + 1;
       if(randomNumber === 1) {
+        this.triggerHit();
         heroHealth = heroHealth - enemy.power;
       }
     });
@@ -87,8 +98,9 @@ class Game extends React.Component<IBattleProps, IBattleState> {
       <div className="hero-container">
           <div className="hero-health">
             {this.props.heroHealth}
+            {this.state.showHit && " OUCH"}
           </div>
-        <img src={this.props.hero === 1 ? Princess1 : Princess2} className="hero-img" alt="Hero"/>
+        <img src={this.props.hero === 1 ? Princess1 : Princess2} className={`hero-img ${this.state.showHit ? 'was-hit': ''}`} alt="Hero"/>
       </div>
       <div className="enemies-container">
           {this.state.enemies.map(enemy =>
