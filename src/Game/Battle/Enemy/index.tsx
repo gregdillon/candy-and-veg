@@ -67,9 +67,9 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
       return;
     }
     const weaponUsed = this.props.weaponUsed;
-    const randomNumber = Math.floor(Math.random() * 6) + 1;
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
     const evenNumber = randomNumber % 2 === 0;
-    const is33Percent = randomNumber === 3 || randomNumber === 5;
+    const is33Percent = randomNumber < 34;
     this.setState({showMiss:false, showHit:false}, () => {
       if ((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
         this.triggerMiss();

@@ -22,9 +22,14 @@ class Game extends React.Component<IMapProps, IMapState> {
           <img src={this.props.hero === 1 ? Princess1 : Princess2} className={`map-hero level-${this.props.level}`} alt="Hero" />
         </div>
         <div className="instructions">
-          <span>Instructions here...</span>
+          <h3>Instructions</h3>
+          <p>Click on an enemy to attack.</p>
+          <p>After every attack ALL enemies will strike back.</p>
+          <p>The attacked enemy has a 50% chance of hitting the princess.</p>
+          <p>Non-attacked enemies have a 25% chance of hitting the princess.</p>
+          <p>Power-ups, if available, must be choosen before battle and can only be used one time.</p>
+          <button onClick={this.setGameState}>Battle</button>
         </div>
-        <button onClick={this.setGameState}>Battle</button>
       </div>
     );
   }

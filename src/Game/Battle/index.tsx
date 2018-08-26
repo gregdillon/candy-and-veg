@@ -93,13 +93,13 @@ class Game extends React.Component<IBattleProps, IBattleState> {
     const allEnemies = this.livingEnemies();
     let heroHealth = this.props.heroHealth;
     allEnemies.forEach(enemy => {
-      const randomNumber = Math.floor(Math.random() * 4) + 1;
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
       const wasAttackedEnemy = enemy.enemyId === attackedEnemyId;
       if (wasAttackedEnemy && randomNumber % 2 === 0) {
         this.triggerHit();
         heroHealth = heroHealth - enemy.power;
       }
-      if (!wasAttackedEnemy && randomNumber === 3) {
+      if (!wasAttackedEnemy && randomNumber < 26) {
         this.triggerHit();
         heroHealth = heroHealth - enemy.power;
       }

@@ -36,9 +36,11 @@ class Game extends React.Component<IIntroProps, IIntroState> {
         </div>
         <div className="intro-col">
           <div className="weapon">
+              <span className="weapon-data">Power: 1, Hit Chance: 50%</span>
               <img onClick={() => this.props.setWeapon(1)} src={Sword} className={(currentWeapon && currentWeapon !== 1) ? 'dim' : ''} alt="Sword" />
           </div>
           <div className="weapon">
+              <span className="weapon-data">Power: 2, Hit Chance: 33%</span>
               <img onClick={() => this.props.setWeapon(2)} src={Ax} className={(currentWeapon && currentWeapon !== 2) ? 'dim' : ''} alt="Ax" />
           </div>
         </div>
