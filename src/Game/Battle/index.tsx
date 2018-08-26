@@ -30,7 +30,7 @@ export interface IEnemy {
   number: number
 }
 
-const MAX_ENEMY_HEALTH = 10;
+const MAX_ENEMY_HEALTH = 5;
 const MAX_ENEMY_POWER = 5;
 const NUMBER_OF_ENEMIES = 9;
 
@@ -63,9 +63,9 @@ class Game extends React.Component<IBattleProps, IBattleState> {
       return levelEnemies;
     }
     const bossEnemies:IEnemy[] = [
-      { enemyId: 1, health: 10, power: 10, number: 10 }
-
-    ]
+      { enemyId: 1, health: 10, power: 10, number: 10 },
+      { enemyId: 2, health: 5, power: 5, number: 4 }
+    ];
     const enemies = level === 5 ? bossEnemies : generateEnemies()
     this.setState({ enemies })
   }

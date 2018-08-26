@@ -86,7 +86,7 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   public render() {
     const enemyIsAlive = this.props.enemy.health > 0 
     return (
-      <div className={`enemy-container  ${this.props.currentLevel === 5 ? 'boss-enemy' : ""}`}>
+      <div className={`enemy-container ${this.props.currentLevel === 5 ? 'boss-enemy' : ""}`}>
         <Sound url={`${enemyIsAlive ? "ouch.mp3" : "ahhh.mp3"}`} volume={15} playStatus={this.state.showHit ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showHit: false })} />
         <Sound url="swoosh.mp3" volume={50} playStatus={this.state.showMiss ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showMiss: false })} />
         {enemyIsAlive ?
