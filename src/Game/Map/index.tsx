@@ -21,7 +21,10 @@ class Game extends React.Component<IMapProps, IMapState> {
       <div>
         <div className="map">
           <img src={this.props.hero === 1 ? Princess1 : Princess2} className={`map-hero level-${this.props.level}`} alt="Hero" />
-          <img src={Map} alt="" />
+          <img src={Map} alt="Map" />
+        </div>
+        <div className="instructions">
+          <span>Instructions here...</span>
         </div>
         <button onClick={this.setGameState}>Battle</button>
       </div>

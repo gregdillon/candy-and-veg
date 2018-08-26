@@ -48,6 +48,16 @@ class Game extends React.Component<IGameProps,IGameState> {
     }
   }
 
+  public restart = () => {
+    this.setState({
+      hero: null,
+      weapon: null,
+      level: 1,
+      gameState: GameStateValues.NEW,
+      heroHealth: 100
+    })
+  }
+
   public render() {
     return (
       <div className="Game">
@@ -77,6 +87,7 @@ class Game extends React.Component<IGameProps,IGameState> {
             heroHealth={this.state.heroHealth}
             updateHeorHealth={(heroHealth) => this.setState({heroHealth})}
             continue={() => this.setState(prevState => ({level: prevState.level + 1, gameState: GameStateValues.MAP}))}
+            restart={() => this.restart()}
           />
         }
       </div>

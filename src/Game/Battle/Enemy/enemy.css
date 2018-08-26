@@ -11,16 +11,18 @@
   animation-duration: 500ms;
   animation-direction: alternate;
   animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .enemy-container img.ghost {
   position: absolute;
   bottom: 5px;
   filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600));
-  animation-name: enemy-zoom;
+  animation-name: ghost-move;
   animation-duration: 2000ms;
   animation-direction: alternate;
   animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .enemy-container img.was-hit {
@@ -44,14 +46,17 @@
   };
 }
 
-@keyframes enemy-zoom {
-  100% {
-    transform: scale(0.95);
+@keyframes ghost-move {
+  0% {
+    transform: skew(5deg,5deg);
+    opacity: .7;
   }
   50% {
-    transform: scale(1);
+    transform: skew(0deg,0deg);
+    opacity: .9;
   }
-  0% {
-    transform: scale(0.95);
-  };
+  100% {
+    transform: skew(-5deg,-5deg);
+    opacity: .7;
+  }
 }
