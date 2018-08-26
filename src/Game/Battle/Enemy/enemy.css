@@ -33,30 +33,3 @@
   text-align: center;
   margin-top: 100px;
 }
-
-@keyframes enemy-rotate {
-  100% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  0% {
-    transform: rotate(5deg);
-  };
-}
-
-@keyframes ghost-move {
-  0% {
-    transform: skew(5deg,5deg);
-    opacity: .7;
-  }
-  50% {
-    transform: skew(0deg,0deg);
-    opacity: .9;
-  }
-  100% {
-    transform: skew(-5deg,-5deg);
-    opacity: .7;
-  }
-}

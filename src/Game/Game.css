@@ -5,3 +5,57 @@ div.Game {
   height: 600px;
   border: 1px solid #000;
 }
+
+button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #e53d32;
+  font-size: 24px;
+  border: none;
+  color: #fff;
+}
+
+button:disabled {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgb(167, 167, 167);
+  font-size: 24px;
+  border: none;
+  color: rgb(214, 214, 214);
+}
+
+@keyframes enemy-rotate {
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  0% {
+    transform: rotate(5deg);
+  };
+}
+
+@keyframes ghost-move {
+  0% {
+    transform: skew(5deg,5deg);
+    opacity: .7;
+  }
+  50% {
+    transform: skew(0deg,0deg);
+    opacity: .9;
+  }
+  100% {
+    transform: skew(-5deg,-5deg);
+    opacity: .7;
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translate(0%,-2%);
+  }
+  to {
+    transform: translate(0%,0%);
+  };
+}
