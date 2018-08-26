@@ -31,7 +31,7 @@ export interface IEnemy {
 }
 
 const MAX_ENEMY_HEALTH = 5;
-const MAX_ENEMY_POWER = 5;
+const MAX_ENEMY_POWER = 4;
 const NUMBER_OF_ENEMIES = 9;
 
 class Game extends React.Component<IBattleProps, IBattleState> {
