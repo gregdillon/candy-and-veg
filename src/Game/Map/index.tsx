@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Map from '../Images/map.png';
 import Princess1 from '../Images/princess_1.png'
 import Princess2 from '../Images/princess_2.png'
 import './map.css';
@@ -18,10 +17,9 @@ class Game extends React.Component<IMapProps, IMapState> {
 
   public render() {
     return (
-      <div>
+      <div className="map-container">
         <div className="map">
           <img src={this.props.hero === 1 ? Princess1 : Princess2} className={`map-hero level-${this.props.level}`} alt="Hero" />
-          <img src={Map} alt="Map" />
         </div>
         <div className="instructions">
           <span>Instructions here...</span>

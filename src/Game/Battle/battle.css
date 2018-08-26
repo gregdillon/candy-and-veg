@@ -34,7 +34,7 @@
 }
 .hero-container .hero-health {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .enemies-container {
   position: relative;
@@ -51,7 +51,7 @@
   animation-timing-function: linear;
 }
 .hero-img.was-hit {
-  filter: hue-rotate(50deg) drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600));
+  filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.600)) saturate(0);
 }
 .princess-ghost {
   animation-name: ghost-move;

@@ -47,12 +47,12 @@ class Game extends React.Component<IBattleProps, IBattleState> {
   public returnToMap = () => this.props.setPosition(3);
 
   public componentDidMount = () => {
+    const level = this.props.level;
     const generateEnemies = (): IEnemy[] => {
-      const enemies: IEnemy[] = [];
-      const level = this.props.level;
+      const levelEnemies: IEnemy[] = [];
       let enemyCount = level > 3 ? 3 : level;
       while (enemyCount > 0) {
-        enemies.push({
+        levelEnemies.push({
           enemyId: enemyCount,
           health: level === 1 ? 5 : Math.floor(Math.random() * MAX_ENEMY_HEALTH) + 1,
           power: level === 1 ? 1 : Math.floor(Math.random() * MAX_ENEMY_POWER) + 1,
@@ -60,9 +60,14 @@ class Game extends React.Component<IBattleProps, IBattleState> {
         })
         enemyCount--
       }
-      return enemies;
+      return levelEnemies;
     }
-    this.setState({ enemies: generateEnemies()})
+    const bossEnemies:IEnemy[] = [
+      { enemyId: 1, health: 10, power: 10, number: 10 }
+
+    ]
+    const enemies = level === 5 ? bossEnemies : generateEnemies()
+    this.setState({ enemies })
   }
 
   public updateEnemy = (enemyId:number,health:number) => {
@@ -134,6 +139,7 @@ class Game extends React.Component<IBattleProps, IBattleState> {
                 weaponUsed={this.props.weapon}
                 updateHealth={(enemyId,health) => this.updateEnemy(enemyId,health)}
                 enemyAttack={(attackedId) => this.enemyAttack(attackedId)}
+                currentLevel={this.props.level}
                 heroLost={this.props.heroHealth <= 0}
               />)
             }

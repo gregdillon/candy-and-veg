@@ -11,6 +11,7 @@ import Enemy_6 from './Images/the_tomato.png';
 import Enemy_7 from './Images/tuff_tomato.png';
 import Enemy_8 from './Images/two_punkins.png';
 import Enemy_9 from './Images/two_tomatos.png';
+import Enemy_10 from './Images/carrot_boss.png';
 import Ghost from './Images/ghost.png';
 import './enemy.css';
 
@@ -19,7 +20,8 @@ interface IEnemyProps {
   weaponUsed: number | null,
   updateHealth: (enemyId:number, health:number) => void,
   enemyAttack: (enemyId:number) => void,
-  heroLost: boolean
+  heroLost: boolean,
+  currentLevel: number
 }
 
 interface IEnemyState {
@@ -46,7 +48,8 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
       6: Enemy_6,
       7: Enemy_7,
       8: Enemy_8,
-      9: Enemy_9
+      9: Enemy_9,
+      10: Enemy_10
     }
     return <img onClick={() => this.attacked()} src={enemy[this.props.enemy.number]} className={`${this.state.showHit ? 'was-hit' : ''}`} alt="enemy" />
   }
@@ -83,7 +86,7 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   public render() {
     const enemyIsAlive = this.props.enemy.health > 0 
     return (
-      <div className="enemy-container">
+      <div className={`enemy-container  ${this.props.currentLevel === 5 ? 'boss-enemy' : ""}`}>
         <Sound url={`${enemyIsAlive ? "ouch.mp3" : "ahhh.mp3"}`} volume={15} playStatus={this.state.showHit ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showHit: false })} />
         <Sound url="swoosh.mp3" volume={50} playStatus={this.state.showMiss ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showMiss: false })} />
         {enemyIsAlive ?
