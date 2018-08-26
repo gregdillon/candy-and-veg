@@ -1,5 +1,15 @@
 .map {
   position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.instructions {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
 }
 .map-hero {
   position: absolute;
@@ -8,6 +18,7 @@
   animation-duration: 500ms;
   animation-direction: alternate;
   animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 .level-1 {
   top: 100px;

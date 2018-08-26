@@ -1,4 +1,6 @@
 import * as React from 'react';
+// @ts-ignore
+import Sound from 'react-sound';
 import {IEnemy} from '../index'
 import Enemy_1 from './Images/broc.png';
 import Enemy_2 from './Images/brocolli.png';
@@ -15,7 +17,8 @@ import './enemy.css';
 interface IEnemyProps {
   enemy: IEnemy,
   weaponUsed: number | null,
-  updateHealth: (enemyId:number, health:number) => void
+  updateHealth: (enemyId:number, health:number) => void,
+  enemyAttack: (enemyId:number) => void
 }
 
 interface IEnemyState {
@@ -24,7 +27,6 @@ interface IEnemyState {
 }
 
 class Enemy extends React.Component<IEnemyProps, IEnemyState> {
-
   constructor(props:IEnemyProps){
     super(props);
     this.state = {
@@ -49,22 +51,15 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   }
 
   public triggerMiss = () => {
-    this.setState({showMiss:true},()=>{
-      setTimeout(()=>{
-        this.setState({showMiss: false});
-      },1000);
-    })
+    this.setState({showMiss:true});
   }
 
   public triggerHit = () => {
-    this.setState({ showHit: true }, () => {
-      setTimeout(() => {
-        this.setState({ showHit: false });
-      }, 1000);
-    })
+    this.setState({ showHit: true });
   }
 
   public attacked = () => {
+    if(this.state.showHit || this.state.showMiss) { return; }
     const weaponUsed = this.props.weaponUsed;
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     const evenNumber = randomNumber % 2 === 0;
@@ -72,6 +67,7 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
     this.setState({showMiss:false, showHit:false}, () => {
       if ((weaponUsed === 1 && !evenNumber) || (weaponUsed === 2 && !is33Percent)) {
         this.triggerMiss();
+        this.props.enemyAttack(this.props.enemy.enemyId);
       } else {
         this.triggerHit();
         const currentHealth = this.props.enemy.health;
@@ -82,19 +78,22 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   }
 
   public render() {
+    const enemyIsAlive = this.props.enemy.health > 0 
     return (
       <div className="enemy-container">
-      {this.props.enemy.health > 0 ?
+        <Sound url={`${enemyIsAlive ? "ouch.mp3" : "ahhh.mp3"}`} volume={15} playStatus={this.state.showHit ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showHit: false })} />
+        <Sound url="swoosh.mp3" volume={50} playStatus={this.state.showMiss ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showMiss: false })} />
+        {enemyIsAlive ?
         <>
           <div className="enemy-health">
             Health: {this.props.enemy.health} Power: {this.props.enemy.power}
-            {this.state.showMiss && " MISS"}
-            {this.state.showHit && " HIT"}
           </div>
           {this.generateEnemyImage()}
         </>
         :
-        <img src={Ghost} className="ghost" alt="Ghost"/>
+        <>
+          <img src={Ghost} className="ghost" alt="Ghost"/>
+        </>
       }
       </div>
     );

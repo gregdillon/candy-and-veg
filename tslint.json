@@ -14,6 +14,7 @@
     "no-empty-interface": false,
     "object-literal-sort-keys": false,
     "jsx-no-lambda": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "no-console": false
   }
 }
