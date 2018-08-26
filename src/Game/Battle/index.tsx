@@ -134,6 +134,7 @@ class Game extends React.Component<IBattleProps, IBattleState> {
                 weaponUsed={this.props.weapon}
                 updateHealth={(enemyId,health) => this.updateEnemy(enemyId,health)}
                 enemyAttack={(attackedId) => this.enemyAttack(attackedId)}
+                heroLost={this.props.heroHealth <= 0}
               />)
             }
         </div>

@@ -18,7 +18,8 @@ interface IEnemyProps {
   enemy: IEnemy,
   weaponUsed: number | null,
   updateHealth: (enemyId:number, health:number) => void,
-  enemyAttack: (enemyId:number) => void
+  enemyAttack: (enemyId:number) => void,
+  heroLost: boolean
 }
 
 interface IEnemyState {
@@ -59,7 +60,9 @@ class Enemy extends React.Component<IEnemyProps, IEnemyState> {
   }
 
   public attacked = () => {
-    if(this.state.showHit || this.state.showMiss) { return; }
+    if(this.state.showHit || this.state.showMiss || this.props.heroLost) {
+      return;
+    }
     const weaponUsed = this.props.weaponUsed;
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     const evenNumber = randomNumber % 2 === 0;
