@@ -20,7 +20,8 @@ interface IBattleProps {
 
 interface IBattleState {
   enemies: IEnemy[],
-  showHit: boolean
+  showHit: boolean,
+  deadPricessSoundPlayed: boolean
 }
 
 export interface IEnemy {
@@ -40,7 +41,8 @@ class Game extends React.Component<IBattleProps, IBattleState> {
     super(props);
     this.state = {
       enemies: [],
-      showHit: false
+      showHit: false,
+      deadPricessSoundPlayed: false
     }
   }
 
@@ -116,6 +118,9 @@ class Game extends React.Component<IBattleProps, IBattleState> {
               <div className="hero-health">
                 {this.props.heroHealth}
                 {this.state.showHit && " OUCH"}
+                {this.state.showHit &&
+                  <Sound url="princessouch.mp3" volume={15} playStatus={this.state.showHit ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ showHit: false })} />
+                }
                 {this.livingEnemies().length === 0 &&
                   <button onClick={() => this.props.continue()}>You Win! Return to Map!</button>
                 }
@@ -128,6 +133,7 @@ class Game extends React.Component<IBattleProps, IBattleState> {
                 <button onClick={() => this.props.restart()}>You Loose! Start again!</button>
               </div>
               <img src={PrincessGhost} className="princess-ghost" alt="Ghost Princess"/>
+              <Sound url="princessahh.mp3" volume={15} playStatus={this.state.deadPricessSoundPlayed ? Sound.status.PLAYING : Sound.status.STOPPED} onFinishedPlaying={() => this.setState({ deadPricessSoundPlayed: true })} />
             </>
         }
         </div>
